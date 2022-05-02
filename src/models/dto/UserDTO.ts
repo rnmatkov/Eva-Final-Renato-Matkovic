@@ -1,14 +1,26 @@
-interface BaseUserDTO {
+export interface BaseUserDTO {
     firstName: string
     lastName: string
     email: string
-    password: string
 }
 
 export interface UserDTO extends BaseUserDTO {
     id: number
 }
 
-export interface CreateUserDTO extends BaseUserDTO { }
+export interface CreateUserDTO extends BaseUserDTO {
+    password: string
+}
 
-export interface UpdateUserDTO extends Partial<BaseUserDTO> { }
+export type UpdateUserDTO = Partial<CreateUserDTO>
+
+export interface LoginUserDTO extends UserDTO {
+    password: string
+}
+
+export interface UserTokenPayload {
+    sub: number
+    email: string
+    exp: number
+    iat: number
+}

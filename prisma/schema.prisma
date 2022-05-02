@@ -12,7 +12,7 @@ datasource db {
 model Task {
     id      Int     @id @default(autoincrement())
     title   String  @unique @db.VarChar(60)
-    content String  @db.VarChar(255)
+    content String  @db.Text
     done    Boolean
     user    User?   @relation(fields: [userId], references: [id])
     userId  Int?
