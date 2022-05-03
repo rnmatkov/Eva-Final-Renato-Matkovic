@@ -1,12 +1,10 @@
 import { Router } from 'express'
-import authRoutes from './authRoutes'
-import healthRoutes from './healthRoutes'
-import taskRoutes from './taskRoutes'
+import AuthController from '../controllers/AuthController'
 
-const apiRoutes = Router()
+const authRoutes = Router()
+const controller = new AuthController()
 
-apiRoutes.use('/', healthRoutes)
-apiRoutes.use('tasks', taskRoutes)
-apiRoutes.use('/auth', authRoutes)
+authRoutes.use('/login', controller.login)
+authRoutes.use('/register', controller.register)
 
-export default apiRoutes
+export default authRoutes

@@ -1,8 +1,8 @@
-interface BaseTaskDTO {
+export interface BaseTaskDTO {
     title: string
     content: string
     done: boolean
-    user: string  
+    id?: number
 }
 
 export interface TaskDTO extends BaseTaskDTO {
@@ -10,6 +10,6 @@ export interface TaskDTO extends BaseTaskDTO {
     userId: number | null
 }
 
-export interface CreateTaskDTO extends BaseTaskDTO {}
+export interface CreateTaskDTO extends BaseTaskDTO { }
 
-export interface UpdateTaskDTO extends Partial<BaseTaskDTO>{}
+export interface UpdateTaskDTO extends Partial<BaseTaskDTO> { }

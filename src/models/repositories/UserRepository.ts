@@ -1,16 +1,16 @@
 import { PrismaClient } from "@prisma/client";
-import { CreateUserDTO, UpdateUserDTO, UserDTO } from "../dto/UserDTO"
+import { CreateUserDTO, UpdateUserDTO, UserDTO, LoginUserDTO } from "../dto/UserDTO"
 
 const prisma = new PrismaClient()
 
 export default class UserRepository {
     public readonly findAll = async (): Promise<UserDTO[]> => {
         const users = await prisma.user.findMany()
-        const usersWithoutPassword = users.map(user => {
+        const userWithoutPassword = users.map(user => {
             const { password, ...userWithoutPassword } = user
-            return usersWithoutPassword
+            return userWithoutPassword
         })
-        return usersWithoutPassword
+        return userWithoutPassword
     }
 
     public readonly findById = async (id: number): Promise<UserDTO | undefined> => {
@@ -26,7 +26,7 @@ export default class UserRepository {
         return userWithoutPasssword
     }
 
-    public readonly findByEmail = async (email: string):Promise<LoginUserDTO | undefined> => {
+    public readonly findByEmail = async (email: string): Promise<LoginUserDTO | undefined> => {
         const user = await prisma.user.findUnique({
             where: {
                 email
@@ -55,11 +55,11 @@ export default class UserRepository {
         })
     }
 
-    public readonly delete = async (id: number): Promise<void> => (
+    public readonly delete = async (id: number): Promise<void> => {
         await prisma.user.delete({
             where: {
                 id
             }
         })
-    )
+    }
 }

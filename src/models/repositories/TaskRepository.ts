@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Task } from "@prisma/client";
 import { CreateTaskDTO, UpdateTaskDTO, TaskDTO } from "../dto/TaskDTO"
 
 const prisma = new PrismaClient()
@@ -11,7 +11,7 @@ export default class TaskRepository {
     }
 
     public readonly findAll = async (): Promise<TaskDTO[]> => {
-        const tasks = await prisma.task.findMany({
+        const tasks: Task[] = await prisma.task.findMany({
             where: {
                 userId: this.userId
             }
@@ -44,20 +44,18 @@ export default class TaskRepository {
     }
 
     public readonly update = async (id: number, task: UpdateTaskDTO): Promise<void> => {
-        await prisma.task.updateMany({
+        await prisma.task.update({
             where: {
-                id,
-                userId: this.userId
+                id
             },
             data: task
         })
     }
 
     public readonly delete = async (id: number): Promise<void> => {
-        await prisma.task.deleteMany({
+        await prisma.task.delete({
             where: {
-                id,
-                userId: this.userId
+                id
             }
         })
     }
